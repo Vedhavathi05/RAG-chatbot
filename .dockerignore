@@ -1,9 +1,24 @@
-.git
-.gitignore
+# virtual env
 .venv
 __pycache__
-.env
+*.pyc
 
+# git
+.git
+.gitignore
+
+# frontend dev files
+frontend/node_modules
+
+# preprocessing data (NOT needed in runtime)
 final_cleaned
+text
 rag_index/chunks
-frontend
+
+# local caches
+.cache
+.huggingface
+*.log
+
+# OS files
+.DS_Store
