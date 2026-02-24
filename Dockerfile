@@ -1,19 +1,28 @@
 FROM python:3.10-slim
 
+# -----------------------------
+# Working directory
+# -----------------------------
 WORKDIR /app
 
-# system deps
+# -----------------------------
+# System dependencies
+# -----------------------------
 RUN apt-get update && apt-get install -y \
     build-essential \
     gcc \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-# install deps
+# -----------------------------
+# Install Python dependencies
+# -----------------------------
 COPY requirements.deploy.txt .
 RUN pip install --no-cache-dir -r requirements.deploy.txt
 
-# preload models (CRITICAL)
+# -----------------------------
+# Preload models (cache inside image)
+# -----------------------------
 RUN python - <<EOF
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 from sentence_transformers import SentenceTransformer, CrossEncoder
@@ -25,11 +34,20 @@ SentenceTransformer("BAAI/bge-base-en-v1.5")
 CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 EOF
 
-# copy project
+# -----------------------------
+# Copy project files
+# -----------------------------
 COPY . .
 
-RUN mkdir -p storage/conversations
+# conversations storage
+RUN mkdir -p backend/storage/conversations
 
+# -----------------------------
+# Render uses dynamic PORT
+# -----------------------------
 EXPOSE 8000
 
-CMD ["python", "run.py"]
+# -----------------------------
+# Correct entrypoint
+# -----------------------------
+CMD ["python", "backend/run.py"]
