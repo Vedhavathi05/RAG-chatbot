@@ -24,14 +24,16 @@ try:
     print("🔗 Backend Server: http://localhost:8000")
     print("🔗 Frontend Server: http://localhost:3000")
     print("\n⏳ Starting LLM will load on first chat request...\n")
-    
     import sys
     sys.stdout.flush()
-    
+    import os
+
+    port = int(os.environ.get("PORT", 8000))
+
     uvicorn.run(
         app,
         host="0.0.0.0",
-        port=8000,
+        port=port,
         log_level="info"
     )
     
