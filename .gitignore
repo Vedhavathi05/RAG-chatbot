@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual env
+.venv/
+env/
+
+# OS
+.DS_Store
+
+# Environment
+.env
+
+# Ingestion data (DO NOT PUSH)
+final_cleaned/
+rag_index/chunks/
+
+# caches
+.cache/
+.huggingface/
+
+# logs
+*.log
+
+frontend/node_modules/
+frontend/dist/
+
+# ingestion data
+text/
+final_cleaned/
+rag_index/chunks/
+
+# offline pipeline
+backend/app/ingest/
+unified_preprocess.py

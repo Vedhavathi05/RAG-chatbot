@@ -1,0 +1,9 @@
+.git
+.gitignore
+.venv
+__pycache__
+.env
+
+final_cleaned
+rag_index/chunks
+frontend
